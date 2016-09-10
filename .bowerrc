@@ -1,0 +1,6 @@
+{
+	"directory": "dist/bower_components",
+	"proxy":"http://hcltech%5Csivasankar_r:meanio*90@arihant-proxy:80",
+	"https-proxy":"http://hcltech%5Csivasankar_r:meanio*90@arihant-proxy:80",
+	"strict-ssl": false
+}
