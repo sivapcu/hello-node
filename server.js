@@ -6,6 +6,7 @@
 let express = require('express');
 let app = express(); // create our app with express
 let mongoose = require('mongoose');
+let morgan = require('morgan');
 let bodyParser = require('body-parser'); // pull information from HTML POST
 let methodOverride = require('method-override');
 let chalk = require('chalk'); // to the make console logging colorful
@@ -40,7 +41,12 @@ app.use(methodOverride('X-HTTP-Method-Override'));              // override with
 app.use(express.static(__dirname + '/public'));
 
 /**
+ * Log every request to console
+ */
+app.use(morgan('dev'));
+/**
  * routes ???? Big question -- why this require is not assigned to any variable???
+ * --- the answer is we are loading the routes configuration and sending the app as a param, so that app and express have visibility in routes.js
  */
 require('./app/routes')(app); // configure our routes
 

@@ -21,8 +21,52 @@ module.exports = function(app) {
         });
     });
 
-    // route to handle create nerd requests goes here (app.post)
-    // route to handle delete nerd requests goes here (app.delete)
+    app.post('/api/nerds', function(req, res){
+        let newNerd = new Nerd();
+        newNerd.name = req.body.name;
+        newNerd.save(function(err){
+            if(err) {
+                res.send(err);
+            }
+            res.json({message : 'Nerd Created!!!'});
+        });
+    });
+
+    app.get('/api/nerds/:nerdId', function(req, res){
+        Nerd.findById(req.params.nerdId, function(err, nerd){
+            if(err) {
+                res.send(err);
+            }
+            res.json(nerd);
+        });
+    });
+
+    app.put('/api/nerds/:nerdId', function(req, res){
+        Nerd.findById(req.params.nerdId, function(err, nerd){
+            if(err) {
+                res.send(err);
+            }
+            nerd.name = req.body.name; // updated the fetched nerd name with the value passed in the request body
+
+            nerd.save(function(err) {
+                if(err) {
+                    res.send(err);
+                }
+                res.json({message : 'Nerd updated!!!'});
+            });
+        });
+    });
+
+    app.delete('/api/nerds/:nerdId', function(req, res) {
+        Nerd.remove({
+            _id : req.params.nerdId
+        }, function(err, nerd) {
+            if(err) {
+                res.send(err);
+            }
+            res.json({message : 'Successfully Deleted!!!'});
+        });
+    });
 
 
     /**
